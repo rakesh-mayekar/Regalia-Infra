@@ -2,30 +2,33 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { services } from '../data/content.js'
 import { Button } from './ui.jsx'
+import SocialFeed from './SocialFeed.jsx'
 
 export function Header() {
   const [menu, setMenu] = useState(false)
-  const [drop, setDrop] = useState(false)
+  const [drop, setDrop] = useState(null)
   const [mSvc, setMSvc] = useState(false)
+  const [mAbout, setMAbout] = useState(false)
   const loc = useLocation()
   const dropRef = useRef(null)
   const toggleRef = useRef(null)
 
-  useEffect(() => { setMenu(false); setDrop(false); setMSvc(false) }, [loc.pathname])
+  useEffect(() => { setMenu(false); setDrop(null); setMSvc(false); setMAbout(false) }, [loc.pathname])
 
   useEffect(() => {
     const onKey = e => {
       if (e.key === 'Escape') {
-        if (drop) { setDrop(false); dropRef.current?.querySelector('button')?.focus() }
+        if (drop) { dropRef.current?.querySelector(`[data-dd="${drop}"] > button`)?.focus(); setDrop(null) }
         if (menu) { setMenu(false); toggleRef.current?.focus() }
       }
     }
-    const onClick = e => { if (drop && dropRef.current && !dropRef.current.contains(e.target)) setDrop(false) }
+    const onClick = e => { if (drop && dropRef.current && !dropRef.current.contains(e.target)) setDrop(null) }
     document.addEventListener('keydown', onKey)
     document.addEventListener('mousedown', onClick)
     return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('mousedown', onClick) }
   }, [drop, menu])
 
+  const aboutLinks = [{ to: '/about', label: 'About Regalia' }, { to: '/about/samiksha-singh', label: 'About the Owner' }]
   const svcLinks = [{ to: '/services', label: 'Services Overview' }, ...services.map(s => ({ to: `/services/${s.slug}`, label: s.nav }))]
 
   return (
@@ -33,12 +36,19 @@ export function Header() {
       <a href="#main" className="skip">Skip to content</a>
       <div className="container header-row">
         <Link to="/" className="wordmark">REGALIA INFRA</Link>
-        <nav className="desktop-nav" aria-label="Main">
+        <nav className="desktop-nav" aria-label="Main" ref={dropRef}>
           <NavLink to="/" end>Home</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <div className="dropdown" ref={dropRef}>
-            <button type="button" aria-expanded={drop} aria-controls="svc-menu" onClick={() => setDrop(!drop)}>Services <span aria-hidden="true">▾</span></button>
-            {drop && (
+          <div className="dropdown" data-dd="about">
+            <button type="button" className={loc.pathname.startsWith('/about') ? 'active' : ''} aria-expanded={drop === 'about'} aria-controls="about-menu" onClick={() => setDrop(drop === 'about' ? null : 'about')}>About <span aria-hidden="true">▾</span></button>
+            {drop === 'about' && (
+              <ul id="about-menu" className="dropdown-menu">
+                {aboutLinks.map(l => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}
+              </ul>
+            )}
+          </div>
+          <div className="dropdown" data-dd="svc">
+            <button type="button" aria-expanded={drop === 'svc'} aria-controls="svc-menu" onClick={() => setDrop(drop === 'svc' ? null : 'svc')}>Services <span aria-hidden="true">▾</span></button>
+            {drop === 'svc' && (
               <ul id="svc-menu" className="dropdown-menu">
                 {svcLinks.map(l => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}
               </ul>
@@ -47,7 +57,7 @@ export function Header() {
           <NavLink to="/opportunities">Opportunities</NavLink>
           <NavLink to="/partner-with-us">Partner With Us</NavLink>
         </nav>
-        <div className="header-cta"><Button to="/contact">Share Your Requirement</Button></div>
+        <div className="header-cta"><Button to="/contact">Submit Requirement</Button></div>
         <button type="button" ref={toggleRef} className="menu-toggle" aria-expanded={menu} aria-controls="mobile-menu" onClick={() => setMenu(!menu)}>
           {menu ? 'Close' : 'Menu'}
         </button>
@@ -56,7 +66,10 @@ export function Header() {
         <nav id="mobile-menu" className="mobile-nav" aria-label="Mobile">
           <div className="container">
             <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
+            <button type="button" aria-expanded={mAbout} aria-controls="m-about" onClick={() => setMAbout(!mAbout)}>
+              About <span aria-hidden="true">{mAbout ? '–' : '+'}</span>
+            </button>
+            {mAbout && <div id="m-about" className="mobile-sub">{aboutLinks.map(l => <Link key={l.to} to={l.to}>{l.label}</Link>)}</div>}
             <button type="button" aria-expanded={mSvc} aria-controls="m-svc" onClick={() => setMSvc(!mSvc)}>
               Services <span aria-hidden="true">{mSvc ? '–' : '+'}</span>
             </button>
@@ -64,7 +77,7 @@ export function Header() {
             <Link to="/opportunities">Opportunities</Link>
             <Link to="/partner-with-us">Partner With Us</Link>
             <Link to="/contact">Contact</Link>
-            <Button to="/contact">Share Your Requirement</Button>
+            <Button to="/contact">Submit Requirement</Button>
           </div>
         </nav>
       )}
@@ -84,7 +97,8 @@ export function Footer() {
           <h2>Pages</h2>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
+            <li><Link to="/about">About Regalia</Link></li>
+            <li><Link to="/about/samiksha-singh">About the Owner</Link></li>
             <li><Link to="/opportunities">Opportunities</Link></li>
             <li><Link to="/partner-with-us">Partner With Us</Link></li>
             <li><Link to="/contact">Contact</Link></li>
@@ -123,6 +137,7 @@ export function Layout() {
     <>
       <Header />
       <main id="main" tabIndex={-1}><Outlet /></main>
+      <SocialFeed />
       <Footer />
     </>
   )

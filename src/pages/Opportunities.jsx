@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Eyebrow, SectionHead, FinalCta, Steps, Section, Breadcrumbs, Button, OpportunityCard, Placeholder, StateMessage, Field } from '../components/ui.jsx'
-import { opportunities, propertyTypes, locations, nextSteps } from '../data/content.js'
+import { InfoCard, Eyebrow, SectionHead, FinalCta, Steps, Section, Breadcrumbs, Button, OpportunityCard, Placeholder, StateMessage, Field } from '../components/ui.jsx'
+import { opportunities, propertyTypes, locations, nextSteps, photos, oppImage } from '../data/content.js'
 
 export function Opportunities() {
   const [f, setF] = useState({ type: '', location: '', mode: '' })
@@ -38,7 +38,7 @@ export function Opportunities() {
         ) : (
           <StateMessage title="No matching opportunities." text="Try changing your filters." actions={<>
             <Button variant="secondary" onClick={clear}>Clear Filters</Button>
-            <Button to="/contact">Share Your Requirement</Button>
+            <Button to="/contact">Submit Requirement</Button>
           </>} />
         )}
       </Section>
@@ -57,18 +57,19 @@ export function OpportunityDetail() {
   if (!o) return (
     <Section><StateMessage title="Property not found." text="This link may be incorrect or the listing may have been removed." actions={<>
       <Button to="/opportunities" variant="secondary">View Other Opportunities</Button>
-      <Button to="/contact">Share Your Requirement</Button>
+      <Button to="/contact">Submit Requirement</Button>
     </>} /></Section>
   )
   if (!o.available) return (
     <Section><StateMessage title="This opportunity is currently unavailable." actions={<>
       <Button to="/opportunities" variant="secondary">View Other Opportunities</Button>
-      <Button to="/contact">Share Your Requirement</Button>
+      <Button to="/contact">Submit Requirement</Button>
     </>} /></Section>
   )
 
   const enquire = `/contact?req=${reqFor[o.type]}&property=${o.id}`
-  const images = ['Main view', 'Interior', 'Layout', 'Surroundings']
+  const images = ['Main view', 'Context view', 'Surroundings', 'Site plan']
+  const gallery = [oppImage[o.id], photos.site, photos.courtyard, photos.park]
   return (
     <>
       <Section>
@@ -80,10 +81,10 @@ export function OpportunityDetail() {
             <p className="muted">{o.location} (illustrative)</p>
 
             <div className="gallery">
-              <Placeholder label={`${images[img]} — placeholder`} ratio="16/10" />
+              <Placeholder label={`${images[img]} (sample image)`} ratio="16/10" src={gallery[img]} />
               <div className="thumbs" role="group" aria-label="Gallery thumbnails">
                 {images.map((l, i) => (
-                  <button key={l} type="button" className="thumb" aria-pressed={img === i} aria-label={`Show image ${i + 1}: ${l}`} onClick={() => setImg(i)}>{i + 1}</button>
+                  <button key={l} type="button" className="thumb" aria-pressed={img === i} aria-label={`Show image ${i + 1}: ${l}`} onClick={() => setImg(i)}>{<img src={gallery[i]} alt="" />}</button>
                 ))}
               </div>
             </div>
@@ -100,10 +101,10 @@ export function OpportunityDetail() {
             </dl>
 
             <h2>Location</h2>
-            <Placeholder label="Location placeholder" ratio="16/7" />
+            <Placeholder label="Location (sample image)" ratio="16/7" src={photos.park} />
 
             <h2>What happens next</h2>
-            <ol className="next">{nextSteps.map(([t, d], i) => <li key={t}><span className="step-n">{String(i + 1).padStart(2, '0')}</span><div><strong>{t}</strong><p>{d}</p></div></li>)}</ol>
+            <div className="cards cards-3">{nextSteps.map(([t, d], i) => <InfoCard key={t} index={String(i + 1).padStart(2, '0')} title={t} text={d} />)}</div>
           </div>
           <aside className="enquiry-panel" aria-label="Enquiry">
             <h2>Interested?</h2>

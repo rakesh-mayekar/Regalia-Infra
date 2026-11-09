@@ -12,6 +12,10 @@ const paths = {
   handshake: <><path d="M3 12l5-5 4 3 4-3 5 5" /><path d="M8 17l2 2 2-2 2 2 2-2" /></>,
   doc: <><path d="M6 3h9l4 4v14H6z" /><path d="M14 3v5h5M9 13h7M9 17h7" /></>,
   chat: <><path d="M4 5h16v11H9l-5 4z" /></>,
+  phone: <><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z" /></>,
+  mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></>,
+  whatsapp: <><path d="M4 20l1.4-4.2A8 8 0 118 18.6z" /><path d="M9 9c0 3 3 6 6 6l1.2-1.6-2.2-1-1 .8c-1-.4-1.8-1.2-2.2-2.2l.8-1-1-2.2z" /></>,
+  clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
 }
 
 export default function Icon({ name, size = 28 }) {
@@ -31,6 +35,26 @@ export function Skyline() {
       <path d="M190 290V130h50v160M200 150h8M222 150h8M200 180h8M222 180h8M200 210h8M222 210h8" />
       <path d="M260 290V40h60v250M290 40V15M270 70h40M270 100h40M270 130h40M270 160h40M270 190h40M270 220h40" />
       <path d="M340 290V200h45v90M350 220h8M366 220h8M350 245h8M366 245h8" />
+    </svg>
+  )
+}
+
+export function PortraitArt() {
+  return (
+    <svg className="portrait-art" viewBox="0 0 300 380" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+      <circle cx="150" cy="120" r="62" />
+      <path d="M118 112c18-6 44-6 64 0M130 140c12 8 28 8 40 0" />
+      <path d="M20 380c0-86 52-132 130-132s130 46 130 132" />
+      <path d="M118 176v34M182 176v34M118 210c8 16 56 16 64 0" />
+      <path d="M60 380c4-50 30-84 62-100M240 380c-4-50-30-84-62-100" strokeDasharray="3 5" />
+    </svg>
+  )
+}
+
+export function Rings() {
+  return (
+    <svg className="rings" viewBox="0 0 160 160" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
+      {[74, 60, 46, 32, 18, 6].map(r => <circle key={r} cx="80" cy={160 - r - 6} r={r} />)}
     </svg>
   )
 }

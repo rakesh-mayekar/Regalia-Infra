@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { InfoCard, CheckCards, Eyebrow, Section, SectionHead, Breadcrumbs, Button, TextLink, Placeholder, Accordion, FinalCta, Steps, StateMessage } from '../components/ui.jsx'
-import { services, shareList } from '../data/content.js'
+import { services, shareList, serviceImage } from '../data/content.js'
 import Icon from '../components/Icon.jsx'
 
 export function ServicesOverview() {
@@ -19,19 +19,8 @@ export function ServicesOverview() {
       </Section>
       <Section tone="grey">
         <SectionHead eyebrow="At a glance" title="Which service fits?" />
-        <div className="table-wrap">
-          <table className="compare">
-            <thead><tr><th scope="col">Service</th><th scope="col">Best for</th><th scope="col">Start with</th></tr></thead>
-            <tbody>
-              {services.map(s => (
-                <tr key={s.slug}>
-                  <th scope="row"><Link to={`/services/${s.slug}`}>{s.short}</Link></th>
-                  <td>{s.audience.replace(/ · /g, ', ')}</td>
-                  <td><Link to={`/contact?req=${s.req}`}>{s.cta}</Link></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="cards cards-4">
+          {services.map(x => <InfoCard key={x.slug} icon={x.icon} tag="Best for" title={x.short} text={x.audience.replace(/ · /g, ', ')} to={`/contact?req=${x.req}`} link={x.cta} />)}
         </div>
       </Section>
       <Section tone="dark">
@@ -60,7 +49,7 @@ export function ServiceDetail() {
             <p className="lead">{s.intro}</p>
             <div className="actions"><Button to={contact}>{s.cta}</Button></div>
           </div>
-          <Placeholder label="Service image" ratio="4/3" />
+          <Placeholder label={`${s.title} (sample image)`} ratio="4/3" src={serviceImage[s.slug]} />
         </div>
       </Section>
       <Section tone="grey">

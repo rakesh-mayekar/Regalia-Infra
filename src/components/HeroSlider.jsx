@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Skyline } from './Icon.jsx'
-import { services } from '../data/content.js'
+import { services, photos, serviceImage } from '../data/content.js'
 
 const slides = [
   { id: 'main', eyebrow: 'Real estate consultancy', title: ['The right space.', 'The right opportunity.'], text: 'Real estate advisory, retail leasing and property sales.',
-    cta: ['Share Your Requirement', '/contact'], alt: ['Explore Services', '/services'], image: 'Architectural image' },
+    cta: ['Submit Requirement', '/contact'], alt: ['Explore Services', '/services'], image: 'Architectural image', src: photos.homes },
   ...services.map(s => ({
     id: s.slug, eyebrow: s.short, title: [s.sentence], text: s.audience.replace(/ · /g, ', ') + '.',
-    cta: [s.cta, `/contact?req=${s.req}`], alt: ['View Service', `/services/${s.slug}`], image: `${s.short} image`,
+    cta: [s.cta, `/contact?req=${s.req}`], alt: ['View Service', `/services/${s.slug}`], image: `${s.short} image`, src: serviceImage[s.slug],
   })),
 ]
 
@@ -51,7 +50,7 @@ export default function HeroSlider() {
                 </div>
               </div>
               <div className="slide-media" role="img" aria-label={s.image}>
-                <Skyline />
+                <img src={s.src} alt="" loading={n === 0 ? 'eager' : 'lazy'} />
                 <span>{s.image}</span>
               </div>
             </div>

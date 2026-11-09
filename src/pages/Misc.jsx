@@ -27,7 +27,7 @@ export function NotFound() {
     <Section>
       <StateMessage title="Page not found." text="The page you’re looking for doesn’t exist." actions={<>
         <Button to="/">Back to Home</Button>
-        <Button to="/contact" variant="secondary">Share Your Requirement</Button>
+        <Button to="/contact" variant="secondary">Submit Requirement</Button>
       </>} />
     </Section>
   )

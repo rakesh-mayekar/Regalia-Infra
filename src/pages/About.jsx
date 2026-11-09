@@ -1,13 +1,26 @@
-import { Eyebrow, CheckCards, InfoCard, Section, SectionHead, Placeholder, FinalCta, Breadcrumbs, Steps } from '../components/ui.jsx'
-import { services, principles, audienceDetail, founder } from '../data/content.js'
+import Icon from '../components/Icon.jsx'
+import { Button, Eyebrow, CheckCards, InfoCard, Section, SectionHead, Placeholder, FinalCta, Breadcrumbs, Steps, TextLink } from '../components/ui.jsx'
+import { services, principles, audienceDetail, founder, photos } from '../data/content.js'
 
 export default function About() {
   return (
     <>
       <Section>
         <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'About' }]} />
-        <h1>About Regalia</h1>
-        <p className="lead">Regalia Infra is a real estate consultancy connecting buyers, brands and property owners with relevant opportunities.</p>
+        <div className="about-home">
+          <div className="about-text">
+            <h1>About Regalia</h1>
+            <p className="lead">Regalia Infra is a real estate consultancy connecting buyers, brands and property owners with relevant opportunities.</p>
+            <p>We work across retail leasing, brand expansion, residential sales and commercial sales and leasing. Every engagement starts with your requirement and moves through shortlisting, visits and discussions.</p>
+            <ul className="about-points">
+              <li><Icon name="search" size={24} /><div><strong>Requirement first</strong><span>We begin with what you need, not a fixed list.</span></div></li>
+              <li><Icon name="visit" size={24} /><div><strong>Relevant options</strong><span>Shortlists matched to location, space and budget.</span></div></li>
+              <li><Icon name="handshake" size={24} /><div><strong>Coordinated discussions</strong><span>Visits, conversations and next steps organised.</span></div></li>
+            </ul>
+            <div className="actions"><Button to="/contact">Submit Requirement</Button><Button to="/services" variant="secondary">Explore Services</Button></div>
+          </div>
+          <Placeholder label="Sample architectural image" ratio="4/5" src={photos.greenery} className="about-img" />
+        </div>
       </Section>
       <Section tone="grey">
         <SectionHead eyebrow="Services" title="What We Do" />
@@ -31,30 +44,17 @@ export default function About() {
       </Section>
       <Section tone="grey" label="Founder">
         <div className="founder founder-full">
-          <Placeholder label="Portrait" ratio="4/5" className="portrait" />
+          <Placeholder label="Samiksha Singh" ratio="4/5" src="/images/owner.png" className="portrait" />
           <div className="founder-body">
             <Eyebrow>Founder</Eyebrow>
             <h2>{founder.name}</h2>
             <p className="muted">{founder.role}</p>
+            <p><TextLink to="/about/samiksha-singh">View full profile</TextLink></p>
             {founder.bio.map(t => <p key={t} className="lead">{t}</p>)}
 
             <h3 className="founder-h">Focus areas</h3>
             <CheckCards items={founder.focus} />
 
-            <div className="founder-cols">
-              <div>
-                <h3 className="founder-h">Background</h3>
-                <ul className="timeline">
-                  {founder.background.map(([r, o, d]) => <li key={r + d}><strong>{r}</strong><span>{o}</span><em>{d}</em></li>)}
-                </ul>
-              </div>
-              <div>
-                <h3 className="founder-h">Education</h3>
-                <ul className="timeline">
-                  {founder.education.map(([r, o, d]) => <li key={r}><strong>{r}</strong><span>{o}</span><em>{d}</em></li>)}
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </Section>

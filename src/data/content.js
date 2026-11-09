@@ -4,7 +4,7 @@ export const services = [
     req: 'retail', audience: 'Retail brands · Property owners',
     sentence: 'Find and lease the right retail space for your business.',
     intro: 'Space requirements, location shortlisting and leasing discussions for retail businesses.',
-    cta: 'Share Your Leasing Requirement',
+    cta: 'Submit Requirement',
     forWho: [['Retail brands', 'Businesses seeking new retail space.'], ['High-street and commercial developments', 'Street-front and mixed-use settings.'], ['Property owners', 'Owners with retail space to lease.']],
     help: [['Define your requirement', 'Clarify space needs and preferred locations.'], ['Shortlist options', 'Review retail spaces that fit your brief.'], ['Arrange site visits', 'Coordinate visits to shortlisted spaces.'], ['Support leasing talks', 'Help move discussions towards terms.']],
     process: ['Share your requirement', 'Review shortlisted spaces', 'Visit and discuss', 'Coordinate lease terms'],
@@ -20,7 +20,7 @@ export const services = [
     req: 'brand', audience: 'Retail brands',
     sentence: 'Location sourcing and property matching for brands planning to grow.',
     intro: 'Help for retail brands planning expansion across new locations and formats.',
-    cta: 'Share Your Expansion Plan',
+    cta: 'Submit Expansion Plan',
     forWho: [['Brands planning expansion', 'Retail brands growing to new locations.'], ['New market entrants', 'Brands entering a new city or area.'], ['Format explorers', 'Businesses testing new store formats.']],
     help: [['Understand your plan', 'Locations, formats and space needs.'], ['Source locations', 'Identify areas that suit your format.'], ['Match properties', 'Connect your needs with suitable spaces.'], ['Coordinate discussions', 'Support conversations with property owners.']],
     process: ['Share your expansion plan', 'Review matched properties', 'Visit and discuss', 'Move to terms'],
@@ -35,7 +35,7 @@ export const services = [
     req: 'residential', audience: 'Home buyers · Residential investors',
     sentence: 'Advisory and shortlisting for people buying homes or investing.',
     intro: 'Guidance for choosing residential property that fits your preferences.',
-    cta: 'Share Your Buying Requirement',
+    cta: 'Submit Requirement',
     forWho: [['Home buyers', 'People looking for a home to live in.'], ['Residential investors', 'Buyers considering property as an investment.']],
     help: [['Capture preferences', 'Location, configuration and budget.'], ['Shortlist properties', 'Review homes that fit your brief.'], ['Coordinate visits', 'Arrange visits to shortlisted properties.'], ['Guide next steps', 'Support discussions through to purchase.']],
     process: ['Share your preferences', 'Review shortlisted homes', 'Visit properties', 'Coordinate the purchase'],
@@ -50,7 +50,7 @@ export const services = [
     req: 'commercial', audience: 'Commercial buyers · Investors · Occupiers',
     sentence: 'Buy or lease commercial property for business use or investment.',
     intro: 'Separate buy and lease pathways for commercial requirements.',
-    cta: 'Discuss Your Commercial Requirement',
+    cta: 'Submit Requirement',
     forWho: [['Commercial buyers and investors', 'Purchasing business property.'], ['Businesses leasing space', 'Occupiers seeking commercial space on lease.']],
     pathways: [['Buy', 'For owner-occupiers and investors purchasing commercial property.'], ['Lease', 'For businesses seeking commercial space on lease.']],
     help: [['Clarify the brief', 'Intended use, location, area and budget.'], ['Shortlist options', 'Review commercial properties that fit.'], ['Coordinate visits and talks', 'Arrange visits and discussions.'], ['Support the transaction', 'Help coordinate through to completion.']],
@@ -64,19 +64,19 @@ export const services = [
 ]
 
 export const requirements = [
-  { id: 'retail', label: 'Retail Leasing' },
-  { id: 'brand', label: 'Brand Expansion' },
-  { id: 'residential', label: 'Residential' },
-  { id: 'commercial', label: 'Commercial' },
-  { id: 'list', label: 'List My Property' },
-  { id: 'general', label: 'General Enquiry' },
+  { id: 'retail', label: 'Retail Leasing', icon: 'store', desc: 'Find retail space for your business.' },
+  { id: 'brand', label: 'Brand Expansion', icon: 'expand', desc: 'Locations and tie-ups for growing brands.' },
+  { id: 'residential', label: 'Residential', icon: 'home', desc: 'Buy or lease a home, or invest.' },
+  { id: 'commercial', label: 'Commercial', icon: 'building', desc: 'Offices, showrooms and business space.' },
+  { id: 'list', label: 'List My Property', icon: 'owner', desc: 'Put your property forward for review.' },
+  { id: 'general', label: 'General Enquiry', icon: 'chat', desc: 'Not sure yet? Tell us what you need.' },
 ]
 
 export const process = ['Share your requirement', 'Review suitable options', 'Visit and discuss', 'Negotiate terms', 'Coordinate the transaction']
 
 export const faqs = [
   ['What services does Regalia Infra offer?', 'Retail leasing, brand expansion, residential sales and advisory, and commercial sales and leasing.'],
-  ['How do I make an enquiry?', 'Use Share Your Requirement, choose your type, and fill in a short two-step form.'],
+  ['How do I make an enquiry?', 'Use Submit Requirement, choose your type, and fill in the matching form.'],
   ['Can I submit my property?', 'Yes. Developers and owners can use the Partner With Us page.'],
   ['Are the listed opportunities real?', 'The opportunities shown in this preview are demo listings for illustration.'],
 ]
@@ -166,4 +166,55 @@ export const founder = {
     ['Marketing Manager', 'SMV Agencies Private Limited', 'Nov 2018 – Mar 2021'],
   ],
   education: [['MBA', 'Madan Mohan Malaviya University of Technology', '2021 – 2023'], ['B.Com (Hons.)', 'Swami Vivekananda Subharti University, Meerut', '2014 – 2017']],
+}
+
+export const stepDetail = {
+  'Share your requirement': 'Tell us what you need through a short form.',
+  'Share your expansion plan': 'Tell us your locations, formats and space needs.',
+  'Share your preferences': 'Location, configuration and budget.',
+  'Share details': 'Send basic details about your property.',
+  'Understand your requirements': 'Location, space, budget and timeline.',
+  'Review suitable options': 'We shortlist options that match your brief.',
+  'Review shortlisted spaces': 'Spaces shortlisted against your requirement.',
+  'Review matched properties': 'Properties matched to your plan.',
+  'Review shortlisted homes': 'Homes shortlisted to your preferences.',
+  'Review shortlisted options': 'Options shortlisted for your use.',
+  'Review options': 'Look through options that fit.',
+  'Review': 'Your submission is looked at by our team.',
+  'Shortlist relevant options': 'Options matched to your brief.',
+  'Visit and discuss': 'Visit shortlisted places and talk through details.',
+  'Visit properties': 'Visit the homes you want to see.',
+  'Visit and negotiate': 'Visit shortlisted options and discuss terms.',
+  'Negotiate terms': 'Discuss terms with the other party.',
+  'Move to terms': 'Take suitable options towards terms.',
+  'Coordinate lease terms': 'Help organise the steps to a lease.',
+  'Coordinate the purchase': 'Help organise the steps to purchase.',
+  'Coordinate the transaction': 'Help organise the steps to completion.',
+  'Coordinate discussions': 'Visits, conversations and next steps.',
+  'Discuss next steps': 'We talk through how to proceed.',
+}
+
+// Sample architectural imagery (temporary, until final project photography is supplied)
+const img = n => `/images/arch-${n}.jpg`
+export const photos = { site: img(1), park: img(2), courtyard: img(3), greenery: img(4), corner: img(5), homes: img(6) }
+export const serviceImage = { 'retail-leasing': photos.corner, 'brand-expansion': photos.site, residential: photos.courtyard, commercial: photos.greenery }
+export const oppImage = { 'OPP-001': photos.corner, 'OPP-002': photos.greenery, 'OPP-003': photos.homes, 'OPP-004': photos.courtyard, 'OPP-005': photos.site, 'OPP-006': photos.park }
+
+// Placeholders: replace with the real details before launch. Left as "to be added" on purpose; nothing here is invented.
+export const contactInfo = {
+  address: { label: 'Office address', value: 'Office address to be added', icon: 'visit' },
+  phone: { label: 'Phone', value: 'Phone number to be added', icon: 'phone', href: '' },
+  whatsapp: { label: 'WhatsApp', value: 'WhatsApp number to be added', icon: 'whatsapp', href: '' },
+  email: { label: 'Email', value: 'Email address to be added', icon: 'mail', href: '' },
+  hours: { label: 'Working hours', value: 'Working hours to be added', icon: 'clock' },
+}
+
+// LinkedIn feed (wireframe): set `url` to the company page link to enable the buttons. Posts are placeholders until the feed is connected.
+export const social = {
+  linkedin: { url: '', handle: 'Regalia Infra' },
+  posts: [
+    { image: photos.corner, tag: 'Sample post' },
+    { image: photos.homes, tag: 'Sample post' },
+    { image: photos.site, tag: 'Sample post' },
+  ],
 }

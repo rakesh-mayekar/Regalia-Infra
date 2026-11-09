@@ -1,6 +1,7 @@
 import { useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Icon, { Skyline } from './Icon.jsx'
+import { stepDetail, oppImage } from '../data/content.js'
 
 export function Button({ to, children, variant = 'primary', type = 'button', ...rest }) {
   const cls = `btn btn-${variant}`
@@ -20,11 +21,12 @@ export function Section({ children, className = '', tone, id, label }) {
   )
 }
 
-export function Placeholder({ label, ratio = '16/9', className = '', art }) {
+export function Placeholder({ label, ratio = '16/9', className = '', art, src }) {
   return (
-    <div className={`placeholder ${className}`} style={{ aspectRatio: ratio }} role="img" aria-label={label}>
-      {art && <Skyline />}
-      <span>{label}</span>
+    <div className={`placeholder ${src ? 'has-img' : ''} ${className}`} style={{ aspectRatio: ratio }} role="img" aria-label={label}>
+      {src && <img src={src} alt="" loading="lazy" />}
+      {!src && art && <Skyline />}
+      {!src && <span>{label}</span>}
     </div>
   )
 }
@@ -43,7 +45,7 @@ export function ServiceLink({ to, title, text, audience, index, icon }) {
 export function OpportunityCard({ o }) {
   return (
     <article className="opp-card">
-      <Placeholder label="Property image" ratio="4/3" />
+      <Placeholder label={`${o.title} (sample image)`} ratio="4/3" src={oppImage[o.id]} />
       <p className="tag">Demo listing</p>
       <h3><Link to={`/opportunities/${o.slug}`}>{o.title}</Link></h3>
       <p className="muted">{o.location} (illustrative)</p>
@@ -178,7 +180,7 @@ export function SectionHead({ title, intro, eyebrow }) {
   )
 }
 
-export function FinalCta({ title = 'Tell us what you’re looking for.', to = '/contact', label = 'Share Your Requirement' }) {
+export function FinalCta({ title = 'Tell us what you’re looking for.', to = '/contact', label = 'Submit Requirement' }) {
   return (
     <Section tone="black" className="final-cta">
       <Eyebrow>Get in touch</Eyebrow>
@@ -188,8 +190,20 @@ export function FinalCta({ title = 'Tell us what you’re looking for.', to = '/
   )
 }
 
+const stepIcons = ['chat', 'search', 'visit', 'doc', 'handshake']
 export function Steps({ steps }) {
-  return <ol className="steps">{steps.map((s, i) => <li key={s}><span className="step-n">{String(i + 1).padStart(2, '0')}</span><span>{s}</span></li>)}</ol>
+  return (
+    <ol className="steps">
+      {steps.map((s, i) => (
+        <li key={s}>
+          <Icon name={stepIcons[i % stepIcons.length]} size={26} />
+          <span className="step-n">{String(i + 1).padStart(2, '0')}</span>
+          <span className="step-t">{s}</span>
+          {stepDetail[s] && <span className="step-d">{stepDetail[s]}</span>}
+        </li>
+      ))}
+    </ol>
+  )
 }
 
 export function InfoCard({ icon, title, text, tag, items, to, link, index }) {

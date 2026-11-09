@@ -1,8 +1,8 @@
-import { Button, Eyebrow, Section, SectionHead, Placeholder, ServiceLink, OpportunityCard, Accordion, FinalCta, TextLink } from '../components/ui.jsx'
+import { InfoCard, Steps, Button, Eyebrow, Section, SectionHead, Placeholder, ServiceLink, OpportunityCard, Accordion, FinalCta, TextLink } from '../components/ui.jsx'
 import { Link } from 'react-router-dom'
 import HeroSlider from '../components/HeroSlider.jsx'
 import Icon from '../components/Icon.jsx'
-import { founder, services, opportunities, process, processIcons, audiences, startPaths, faqs } from '../data/content.js'
+import { founder, services, opportunities, process, processIcons, audiences, startPaths, faqs, photos } from '../data/content.js'
 
 export default function Home() {
   return (
@@ -22,18 +22,26 @@ export default function Home() {
 
       <Section tone="grey" label="Who we work with">
         <SectionHead eyebrow="Who we work with" title="Built around your requirement." />
-        <ul className="audience">
-          {audiences.map(([ic, t, d]) => <li key={t}><Icon name={ic} size={32} /><h3>{t}</h3><p>{d}</p></li>)}
-        </ul>
+        <div className="cards cards-4">
+          {audiences.map(([ic, t, d]) => <InfoCard key={t} icon={ic} title={t} text={d} />)}
+        </div>
       </Section>
 
       <Section label="About Regalia">
-        <div className="split">
-          <div><Eyebrow>About</Eyebrow><h2>Real estate, with a clear approach.</h2></div>
-          <div>
+        <div className="about-home">
+          <div className="about-text">
+            <Eyebrow>About</Eyebrow>
+            <h2>Real estate, with a clear approach.</h2>
             <p className="lead">We connect buyers, brands and property owners with relevant real estate opportunities.</p>
-            <TextLink to="/about">About Regalia</TextLink>
+            <p>Regalia Infra is a real estate consultancy covering leasing and sales. We start with your requirement, shortlist options that fit, and coordinate the conversations that follow.</p>
+            <ul className="about-points">
+              <li><Icon name="store" size={24} /><div><strong>Leasing and brand expansion</strong><span>Retail space, location sourcing and property matching.</span></div></li>
+              <li><Icon name="home" size={24} /><div><strong>Residential and commercial sales</strong><span>Advisory and shortlisting for buyers and investors.</span></div></li>
+              <li><Icon name="handshake" size={24} /><div><strong>Support through to the transaction</strong><span>Visits, discussions and next steps, coordinated.</span></div></li>
+            </ul>
+            <div className="actions"><Button to="/about" variant="secondary">About Regalia</Button><Button to="/contact">Submit Requirement</Button></div>
           </div>
+          <Placeholder label="Sample architectural image" ratio="4/5" src={photos.park} className="about-img" />
         </div>
       </Section>
 
@@ -47,31 +55,27 @@ export default function Home() {
 
       <Section tone="dark" label="Our Process">
         <SectionHead eyebrow="How we work" title="Our Process" />
-        <ol className="steps">
-          {process.map((p, i) => <li key={p}><Icon name={processIcons[i]} size={26} /><span className="step-n">{String(i + 1).padStart(2, '0')}</span><span>{p}</span></li>)}
-        </ol>
+        <Steps steps={process} />
       </Section>
 
       <Section label="Founder">
         <div className="founder">
-          <Placeholder label="Portrait" ratio="4/5" className="portrait" />
+          <Placeholder label="Samiksha Singh" ratio="4/5" src="/images/owner.png" className="portrait" />
           <div>
             <Eyebrow>Founder</Eyebrow>
             <h2>Samiksha Singh</h2>
             <p className="muted">Founder, Regalia Infra</p>
             <p>{founder.short}</p>
-            <TextLink to="/about">About Regalia</TextLink>
+            <div className="actions"><TextLink to="/about/samiksha-singh">View full profile</TextLink><TextLink to="/about">About Regalia</TextLink></div>
           </div>
         </div>
       </Section>
 
       <Section label="Where to begin">
         <SectionHead eyebrow="Get started" title="Where would you like to begin?" />
-        <ul className="paths">
-          {startPaths.map(([t, d, to]) => (
-            <li key={t}><Link to={to}><span className="paths-t">{t}</span><span className="muted">{d}</span><span aria-hidden="true">→</span></Link></li>
-          ))}
-        </ul>
+        <div className="cards cards-auto">
+          {startPaths.map(([t, d, to], k) => <InfoCard key={t} index={String(k + 1).padStart(2, '0')} title={t} text={d} to={to} link="Start" />)}
+        </div>
       </Section>
 
       <Section tone="grey" label="FAQs">
